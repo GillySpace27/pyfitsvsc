@@ -32,7 +32,7 @@ export function activate(context: vscode.ExtensionContext) {
       const localFilePath = uri.fsPath;
       log(`Local file path: ${localFilePath}`);
 
-      const flaskServerUrl = `http://127.0.0.1:5000/preview_rendered?file=${encodeURIComponent(localFilePath)}&extname=PRIMARY`;
+      const flaskServerUrl = `http://127.0.0.1:5000/preview_rendered?file=${encodeURIComponent(localFilePath)}&extname=-1`;
       log(`Flask server URL: ${flaskServerUrl}`);
 
       panel.webview.html = getWebviewContent(flaskServerUrl);
