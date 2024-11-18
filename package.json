@@ -10,6 +10,8 @@
     "Other"
   ],
   "activationEvents": [
+    "onLanguage:fits",
+    "onWebviewPanel:pyfitsvsc.fitsFileEditor",
     "onCommand:pyfitsvsc.openPreview"
   ],
   "main": "./dist/extension.js",
@@ -28,7 +30,18 @@
           "group": "navigation"
         }
       ]
-    }
+    },
+    "customEditors": [
+      {
+        "viewType": "pyfitsvsc.fitsFileEditor",
+        "displayName": "FITS File Preview",
+        "selector": [
+          {
+            "filenamePattern": "*.fits"
+          }
+        ]
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run package",

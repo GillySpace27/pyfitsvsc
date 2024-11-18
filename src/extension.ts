@@ -8,6 +8,35 @@ function log(message: string): void {
   logger.appendLine(message);
 }
 
+class FitsFileEditorProvider implements vscode.CustomTextEditorProvider {
+  public static register(context: vscode.ExtensionContext): vscode.Disposable {
+    const provider = new FitsFileEditorProvider(context);
+    const providerRegistration = vscode.window.registerCustomEditorProvider(FitsFileEditorProvider.viewType, provider);
+    return providerRegistration;
+  }
+
+  private static readonly viewType = 'pyfitsvsc.fitsFileEditor';
+
+  constructor(private readonly context: vscode.ExtensionContext) {}
+
+  public async resolveCustomTextEditor(document: vscode.TextDocument, webviewPanel: vscode.WebviewPanel, _token: vscode.CancellationToken): Promise<void> {
+    log(`Opening .fits file as custom editor: ${document.uri.toString()}`);
+
+    webviewPanel.webview.options = {
+      enableScripts: true
+    };
+
+    const localFilePath = document.uri.fsPath;
+    log(`Local file path: ${localFilePath}`);
+
+    const flaskServerUrl = `http://127.0.0.1:5000/preview_rendered?file=${encodeURIComponent(localFilePath)}&extname=-1`;
+    log(`Flask server URL: ${flaskServerUrl}`);
+
+    webviewPanel.webview.html = getWebviewContent(flaskServerUrl);
+    log('Webview content set.');
+  }
+}
+
 export function activate(context: vscode.ExtensionContext) {
   // Initialize the output channel
   logger = vscode.window.createOutputChannel('FITS Preview');
@@ -15,37 +44,8 @@ export function activate(context: vscode.ExtensionContext) {
 
   log('Activating the extension.');
 
-  let disposable = vscode.commands.registerCommand('pyfitsvsc.openPreview', async (uri: vscode.Uri) => {
-    log(`Command 'pyfitsvsc.openPreview' called with URI: ${uri.toString()}`);
-
-    try {
-      const panel = vscode.window.createWebviewPanel(
-        'fitsPreview',
-        'Preview FITS File',
-        vscode.ViewColumn.One,
-        {
-          enableScripts: true
-        }
-      );
-      log('Webview panel created.');
-
-      const localFilePath = uri.fsPath;
-      log(`Local file path: ${localFilePath}`);
-
-      const flaskServerUrl = `http://127.0.0.1:5000/preview_rendered?file=${encodeURIComponent(localFilePath)}&extname=-1`;
-      log(`Flask server URL: ${flaskServerUrl}`);
-
-      panel.webview.html = getWebviewContent(flaskServerUrl);
-      log('Webview content set.');
-    } catch (error: any) {
-      log(`Error in openPreview command: ${error.message}`);
-      log(`Stack trace: ${error.stack}`);
-      vscode.window.showErrorMessage(`Failed to open FITS preview: ${error.message}`);
-    }
-  });
-
-  context.subscriptions.push(disposable);
-  log('Disposable added to context subscriptions.');
+  context.subscriptions.push(FitsFileEditorProvider.register(context));
+  log('Custom editor provider registered for FITS files.');
 }
 
 function getWebviewContent(url: string): string {
