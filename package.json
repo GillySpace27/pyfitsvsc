@@ -11,8 +11,7 @@
   ],
   "activationEvents": [
     "onLanguage:fits",
-    "onWebviewPanel:pyfitsvsc.fitsFileEditor",
-    "onCommand:pyfitsvsc.openPreview"
+    "onWebviewPanel:pyfitsvsc.fitsFileEditor"
   ],
   "main": "./dist/extension.js",
   "contributes": {
