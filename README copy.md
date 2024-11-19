@@ -1,4 +1,6 @@
-# pyFitsVSC
+# pyfitsvsc README
+
+This is the README for your extension "pyfitsvsc". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 
@@ -12,7 +14,8 @@ For example if there is an image subfolder under your extension project workspac
 
 ## Requirements
 
-This extension runs using the pyfitsserver backend located at *address*
+If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+
 ## Extension Settings
 
 Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
