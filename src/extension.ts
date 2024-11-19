@@ -48,13 +48,14 @@ class FitsFileEditorProvider implements vscode.CustomTextEditorProvider {
     // Mockup example of server request timing (assuming here you would fetch something).
     // const response = await fetch(flaskServerUrl);
     // const fetchEndTime = getCurrentTimeMillis();
-    log(`Server request time: ${fetchStartTime - startTime} ms`);
 
     const renderStartTime = getCurrentTimeMillis();
     webviewPanel.webview.html = getWebviewContent(flaskServerUrl);
     const renderEndTime = getCurrentTimeMillis();
-    log(`Webview content setting time: ${renderEndTime - renderStartTime} ms`);
-    log(`Total time: ${renderEndTime - startTime} ms`);
+    log(`Server request time: ${(fetchStartTime - startTime).toPrecision(4)} ms`);
+    log(`Webview content setting time: ${(renderEndTime - renderStartTime).toPrecision(4)} ms`);
+    log(`Total time: ${(renderEndTime - startTime).toPrecision(4)} ms`);
+
 
     log('Webview content set.');
   }
@@ -74,21 +75,22 @@ export function activate(context: vscode.ExtensionContext) {
 function getWebviewContent(url: string): string {
   log(`Generating webview content for URL: ${url}`);
   return `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>FITS File Preview</title>
-      <style>
-        body { margin: 0; padding: 0; overflow: hidden; height: 100vh; display: flex; justify-content: center; align-items: center; }
-        iframe.centered { border: none; width: 100%; height: 100%; }
-      </style>
-    </head>
-    <body>
-      <iframe class="centered" src="${url}"></iframe>
-    </body>
-    </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FITS File Preview</title>
+  <style>
+    body { margin: 0; padding: 0; overflow: hidden; height: 100vh; display: flex; justify-content: center; align-items: center; }
+    iframe.centered { border: none; width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
+  <iframe class="centered" src="${url}"></iframe>
+</body>
+</html>
+
   `;
 }
 
