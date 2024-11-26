@@ -2,7 +2,11 @@
   "name": "pyfitsvsc",
   "displayName": "pyFitsVSC",
   "description": "A VS Code extension for previewing FITS files using the pyfitsviewer",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GillySpace27/pyfitsvsc"
+  },
   "engines": {
     "vscode": "^1.95.0"
   },
@@ -11,25 +15,11 @@
   ],
   "activationEvents": [
     "onLanguage:fits",
+    "onLanguage:fts",
     "onWebviewPanel:pyfitsvsc.fitsFileEditor"
   ],
   "main": "./dist/extension.js",
   "contributes": {
-    "commands": [
-      {
-        "command": "pyfitsvsc.openPreview",
-        "title": "Open FITS Preview"
-      }
-    ],
-    "menus": {
-      "explorer/context": [
-        {
-          "command": "pyfitsvsc.openPreview",
-          "when": "resourceExtname == .fits",
-          "group": "navigation"
-        }
-      ]
-    },
     "customEditors": [
       {
         "viewType": "pyfitsvsc.fitsFileEditor",
@@ -37,6 +27,9 @@
         "selector": [
           {
             "filenamePattern": "*.fits"
+          },
+          {
+            "filenamePattern": "*.fts"
           }
         ]
       }
