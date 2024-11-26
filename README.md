@@ -1,61 +1,118 @@
 # pyFitsVSC
+This extension allows the user to preview FITS files directly from VSC without having to render them to PNG manually or worry about scaling and plotting settings.
 
-## Features
+This is what the window looks like when you click a *.fits file in the VSCode explorer sidebar:
+![alt text](preview_example.png)
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+Cmd+clicking on the URL that is generated will open the preview in a browser, too!
+![alt text](browser_example.png)
 
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Description
+`pyFitsVSC` is a VS Code extension designed to provide previews of FITS files seamlessly within the editor. The extension contributes the `pyfitsviewer` custom editor to display FITS file contents.
 
 ## Requirements
 
-This extension runs using the pyfitsserver backend located at *address*
-## Extension Settings
+This extension runs using the `pyFitsServer` backend located at [https://github.com/GillySpace27/pyFitsServer](https://github.com/GillySpace27/pyFitsServer). You'll need to install that separately and confirm that it is running before this extension will work.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+### Installation of pyFitsServer
+To install and run `pyFitsServer`, follow these steps:
 
-For example:
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/GillySpace27/pyFitsServer.git
+    ```
+2. **Navigate to the directory**:
+    ```bash
+    cd pyFitsServer
+    ```
+3. **Install the dependencies**:
+    ```bash
+    pip install -r requirements.txt
+    ```
+4. **Run the server**:
+    ```bash
+    python server.py
+    ```
 
-This extension contributes the following settings:
+5. **Confirm the server is running properly by running tests (from the project root)**:
+    ```bash
+    pytest
+    ```
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+## Installation of pyFitsVSC
+It's recommended to install `pyFitsVSC` from a precompiled `.vsix` file provided by the developer to avoid complications with compiling from source.
+
+### Installing from the Precompiled VSIX File
+1. **Download the precompiled `.vsix` file provided by the developer.**
+2. **Open VS Code.**
+3. **Go to Extensions view (`Ctrl+Shift+X`).**
+4. **Click the three-dot menu (`...`).**
+5. **Select `Install from VSIX...`.**
+6. **Browse to and select the downloaded `.vsix` file.**
+
+### Compiling and Packaging from Source
+If you need to compile and package `pyFitsVSC` from source, follow these steps:
+
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/GillySpace27/pyfitsvsc.git
+    ```
+2. **Navigate to the directory**:
+    ```bash
+    cd pyfitsvsc
+    ```
+3. **Install VSCE**:
+    ```bash
+    npm install -g vsce
+    ```
+4. **Compile TypeScript Code**:
+    ```bash
+    npm run compile
+    ```
+5. **Package the extension**:
+    ```bash
+    vsce package
+    ```
+6. **Install the VSIX file**:
+    - Open VS Code
+    - Go to Extensions view (`Ctrl+Shift+X`)
+    - Click the three-dot menu (`...`)
+    - Select `Install from VSIX...`
+    - Browse to and select the `.vsix` file created by the previous step.
+
+## Extension Contributions
+
+This extension contributes the following features:
+
+- 'FITS File Preview' as default editor for FITS files
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- Being packaged with the server included would be very helpful
+- Seems to reduce the resolution of the preview too much
+- Some FITS files break the extension, throwing an Assertion Error. I don't know why that happens yet.
+
+![alt text](error.png)
+
+## Features Planned
+
+- Select the HDU you want to view
+- Select the kind of normalization you want to use
+- Support for zooming and panning
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.0.1
 
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+Initial release of the extension.
 
 ---
 
-## Following extension guidelines
+## Usage
+Once everything is set up, you can preview FITS files by simply clicking on a `.fits` file in the explorer.
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+## Contributing
+Contributions are welcome! Feel free to open issues or submit pull requests.
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+## License
+This project is licensed under the MIT License.

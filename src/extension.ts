@@ -6,7 +6,7 @@ let logger: vscode.OutputChannel;
 function log(message: string): void {
   logger.appendLine(message);
 }
-
+ 
 // Function to get the current time in milliseconds
 function getCurrentTimeMillis(): number {
   const [seconds, nanoseconds] = process.hrtime();
