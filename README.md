@@ -40,7 +40,7 @@ To install and run `pyFitsServer`, follow these steps:
     ```
 
 ## Installation of pyFitsVSC
-It's recommended to install `pyFitsVSC` from a precompiled `.vsix` file provided by the developer to avoid complications with compiling from source.
+It's recommended to install `pyFitsVSC` from a precompiled `.vsix` file provided by the developer to avoid complications with compiling from source. This file will be located in the releases on github.
 
 ### Installing from the Precompiled VSIX File
 1. **Download the precompiled `.vsix` file provided by the developer.**
